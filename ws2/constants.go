@@ -1,5 +1,7 @@
 package ws2
 
+import "math"
+
 const (
 	IOC_VOID     = 0x20000000
 	IOC_OUT      = 0x40000000
@@ -385,4 +387,307 @@ const (
 	NI_DGRAM       = 0x10 // Service is a datagram service
 	NI_MAXHOST     = 1025 // Max size of a fully-qualified domain name
 	NI_MAXSERV     = 32   // Max size of a service name
+)
+
+/*
+  ws2ipdef.h
+*/
+
+// Interface flags
+const (
+	IFF_UP           = 0x00000001 // Interface is up.
+	IFF_BROADCAST    = 0x00000002 // Broadcast is supported.
+	IFF_LOOPBACK     = 0x00000004 // This is a loopback interface.
+	IFF_POINTTOPOINT = 0x00000008 // This is a point-to-point interface.
+	IFF_MULTICAST    = 0x00000010 // Multicast is supported.
+)
+
+// Options to use with [gs]etsockopt at the IPPROTO_IP level.
+// The values should be consistent with the IPv6 equivalents.
+//
+// Options to use with setsockopt and getsockopt at the IPPROTO_IP level.
+const (
+	IP_OPTIONS                     = 1  // Set/get IP options.
+	IP_HDRINCL                     = 2  // Header is included with data.
+	IP_TOS                         = 3  // IP type of service.
+	IP_TTL                         = 4  // IP TTL (hop limit).
+	IP_MULTICAST_IF                = 9  // IP multicast interface.
+	IP_MULTICAST_TTL               = 10 // IP multicast TTL (hop limit).
+	IP_MULTICAST_LOOP              = 11 // IP multicast loopback.
+	IP_ADD_MEMBERSHIP              = 12 // Add an IP group membership.
+	IP_DROP_MEMBERSHIP             = 13 // Drop an IP group membership.
+	IP_DONTFRAGMENT                = 14 // Don't fragment IP datagrams.
+	IP_ADD_SOURCE_MEMBERSHIP       = 15 // Join IP group/source.
+	IP_DROP_SOURCE_MEMBERSHIP      = 16 // Leave IP group/source.
+	IP_BLOCK_SOURCE                = 17 // Block IP group/source.
+	IP_UNBLOCK_SOURCE              = 18 // Unblock IP group/source.
+	IP_PKTINFO                     = 19 // Receive packet information.
+	IP_HOPLIMIT                    = 21 // Receive packet hop limit.
+	IP_RECVTTL                     = 21 // Receive packet Time To Live (TTL).
+	IP_RECEIVE_BROADCAST           = 22 // Allow/block broadcast reception.
+	IP_RECVIF                      = 24 // Receive arrival interface.
+	IP_RECVDSTADDR                 = 25 // Receive destination address.
+	IP_IFLIST                      = 28 // Enable/Disable an interface list.
+	IP_ADD_IFLIST                  = 29 // Add an interface list entry.
+	IP_DEL_IFLIST                  = 30 // Delete an interface list entry.
+	IP_UNICAST_IF                  = 31 // IP unicast interface.
+	IP_RTHDR                       = 32 // Set/get IPv6 routing header.
+	IP_GET_IFLIST                  = 33 // Get an interface list.
+	IP_RECVRTHDR                   = 38 // Receive the routing header.
+	IP_TCLASS                      = 39 // Packet traffic class.
+	IP_RECVTCLASS                  = 40 // Receive packet traffic class.
+	IP_RECVTOS                     = 40 // Receive packet Type Of Service (TOS).
+	IP_ORIGINAL_ARRIVAL_IF         = 47 // Original Arrival Interface Index.
+	IP_ECN                         = 50 // IP ECN codepoint.
+	IP_RECVECN                     = 50 // Receive ECN codepoints in the IP header.
+	IP_PKTINFO_EX                  = 51 // Receive extended packet information.
+	IP_WFP_REDIRECT_RECORDS        = 60 // WFP's Connection Redirect Records.
+	IP_WFP_REDIRECT_CONTEXT        = 70 // WFP's Connection Redirect Context.
+	IP_MTU_DISCOVER                = 71 // Set/get path MTU discover state.
+	IP_MTU                         = 73 // Get path MTU.
+	IP_NRT_INTERFACE               = 74 // Set NRT interface constraint (outbound).
+	IP_RECVERR                     = 75 // Receive ICMP errors.
+	IP_USER_MTU                    = 76 // Set/get app defined upper bound IP layer MTU.
+	IP_UNSPECIFIED_TYPE_OF_SERVICE = -1
+	IP_UNSPECIFIED_USER_MTU        = math.MaxUint32
+)
+
+// N.B. These addresses are in network byte order.
+var (
+	IPV6_ADDRESS_BITS = 128
+
+	IN6ADDR_ANY_INIT = [16]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+	IN6ADDR_LOOPBACK_INIT = [16]byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+
+	IN6ADDR_ALLNODESONNODE_INIT = [16]byte{
+		0xff, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
+	}
+
+	IN6ADDR_ALLNODESONLINK_INIT = [16]byte{
+		0xff, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
+	}
+
+	IN6ADDR_ALLROUTERSONLINK_INIT = [16]byte{
+		0xff, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02,
+	}
+
+	IN6ADDR_ALLMLDV2ROUTERSONLINK_INIT = [16]byte{
+		0xff, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16,
+	}
+
+	IN6ADDR_TEREDOINITIALLINKLOCALADDRESS_INIT = [16]byte{
+		0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe,
+	}
+
+	IN6ADDR_TEREDOOLDLINKLOCALADDRESSXP_INIT = [16]byte{
+		0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 'T', 'E', 'R', 'E', 'D', 'O',
+	}
+
+	IN6ADDR_TEREDOOLDLINKLOCALADDRESSVISTA_INIT = [16]byte{
+		0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+	}
+
+	IN6ADDR_LINKLOCALPREFIX_INIT = [2]byte{0xfe, 0x80}
+
+	IN6ADDR_MULTICASTPREFIX_INIT = [2]byte{0xff, 0x00}
+
+	IN6ADDR_SOLICITEDNODEMULTICASTPREFIX_INIT = [13]byte{
+		0xff, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x01, 0xff,
+	}
+
+	IN6ADDR_V4MAPPEDPREFIX_INIT = [12]byte{
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0xff, 0xff,
+	}
+
+	IN6ADDR_6TO4PREFIX_INIT = [2]byte{0x20, 0x02}
+
+	IN6ADDR_TEREDOPREFIX_INIT = [4]byte{0x20, 0x01, 0x00, 0x00}
+
+	IN6ADDR_TEREDOPREFIX_INIT_OLD = [4]byte{0x3f, 0xfe, 0x83, 0x1f}
+
+	IN6ADDR_ULAPREFIX_INIT = [1]byte{0xfc}
+
+	IN6ADDR_SITELOCALPREFIX_INIT = [2]byte{0xfe, 0xc0}
+
+	IN6ADDR_6BONETESTPREFIX_INIT = [2]byte{0x3f, 0xfe}
+)
+
+// Prefix lengths
+const (
+	IN6ADDR_LINKLOCALPREFIX_LENGTH              = 64
+	IN6ADDR_MULTICASTPREFIX_LENGTH              = 8
+	IN6ADDR_SOLICITEDNODEMULTICASTPREFIX_LENGTH = 104
+	IN6ADDR_V4MAPPEDPREFIX_LENGTH               = 96
+	IN6ADDR_6TO4PREFIX_LENGTH                   = 16
+	IN6ADDR_TEREDOPREFIX_LENGTH                 = 32
+)
+
+// TCP/IP specific Ioctl codes.
+const (
+	SIO_GET_INTERFACE_LIST    = 0x80000007 | 0x20000000 | (0x74 << 16) | (127 << 8) | 4
+	SIO_GET_INTERFACE_LIST_EX = 0x80000007 | 0x20000000 | (0x74 << 16) | (126 << 8) | 4
+	SIO_SET_MULTICAST_FILTER  = 0x80000008 | 0x40000000 | (0x74 << 16) | (125 << 8) | 4
+	SIO_GET_MULTICAST_FILTER  = 0x80000008 | 0x40000000 | (0x74 << 16) | (124 << 8) | 4
+	SIOCSIPMSFILTER           = SIO_SET_MULTICAST_FILTER
+	SIOCGIPMSFILTER           = SIO_GET_MULTICAST_FILTER
+)
+
+// Protocol independent ioctls for setting and retrieving multicast filters.
+const (
+	SIOCSMSFILTER = 0x80000008 | 0x40000000 | (0x74 << 16) | (126 << 8) | 4
+	SIOCGMSFILTER = 0x80000008 | 0x40000000 | (0x74 << 16) | (127 << 8) | 4
+)
+
+// Query and change notification ioctls for the ideal send backlog size
+// for a given connection. Clients should use the wrappers defined in
+// ws2tcpip.h rather than using these ioctls directly.
+const (
+	SIO_IDEAL_SEND_BACKLOG_QUERY  = 0x80000007 | 0x20000000 | (0x74 << 16) | (123 << 8) | 4
+	SIO_IDEAL_SEND_BACKLOG_CHANGE = 0x80000007 | 0x20000000 | (0x74 << 16) | (122 << 8)
+)
+
+// Protocol independent multicast source filter options.
+const (
+	MCAST_JOIN_GROUP         = 41 // Join all sources for a group
+	MCAST_LEAVE_GROUP        = 42 // Drop all sources for a group
+	MCAST_BLOCK_SOURCE       = 43 // Block IP group/source
+	MCAST_UNBLOCK_SOURCE     = 44 // Unblock IP group/source
+	MCAST_JOIN_SOURCE_GROUP  = 45 // Join IP group/source
+	MCAST_LEAVE_SOURCE_GROUP = 46 // Leave IP group/source
+)
+
+// Options to use with [gs]etsockopt at the IPPROTO_IPV6 level.
+// These are specified in RFCs 3493 and 3542.
+// The values should be consistent with the IPv6 equivalents.
+const (
+	IPV6_HOPOPTS              = 1                    // Set/get IPv6 hop-by-hop options.
+	IPV6_HDRINCL              = 2                    // Header is included with data.
+	IPV6_UNICAST_HOPS         = 4                    // IP unicast hop limit.
+	IPV6_MULTICAST_IF         = 9                    // IP multicast interface.
+	IPV6_MULTICAST_HOPS       = 10                   // IP multicast hop limit.
+	IPV6_MULTICAST_LOOP       = 11                   // IP multicast loopback.
+	IPV6_ADD_MEMBERSHIP       = 12                   // Add an IP group membership.
+	IPV6_JOIN_GROUP           = IPV6_ADD_MEMBERSHIP  //
+	IPV6_DROP_MEMBERSHIP      = 13                   // Drop an IP group membership.
+	IPV6_LEAVE_GROUP          = IPV6_DROP_MEMBERSHIP //
+	IPV6_DONTFRAG             = 14                   // Don't fragment IP datagrams.
+	IPV6_PKTINFO              = 19                   // Receive packet information.
+	IPV6_HOPLIMIT             = 21                   // Receive packet hop limit.
+	IPV6_PROTECTION_LEVEL     = 23                   // Set/get IPv6 protection level.
+	IPV6_RECVIF               = 24                   // Receive arrival interface.
+	IPV6_RECVDSTADDR          = 25                   // Receive destination address.
+	IPV6_CHECKSUM             = 26                   // Offset to checksum for raw IP socket send.
+	IPV6_V6ONLY               = 27                   // Treat wildcard bind as AF_INET6-only.
+	IPV6_IFLIST               = 28                   // Enable/Disable an interface list.
+	IPV6_ADD_IFLIST           = 29                   // Add an interface list entry.
+	IPV6_DEL_IFLIST           = 30                   // Delete an interface list entry.
+	IPV6_UNICAST_IF           = 31                   // IP unicast interface.
+	IPV6_RTHDR                = 32                   // Set/get IPv6 routing header.
+	IPV6_GET_IFLIST           = 33                   // Get an interface list.
+	IPV6_RECVRTHDR            = 38                   // Receive the routing header.
+	IPV6_TCLASS               = 39                   // Packet traffic class.
+	IPV6_RECVTCLASS           = 40                   // Receive packet traffic class.
+	IPV6_ECN                  = 50                   // IPv6 ECN codepoint.
+	IPV6_RECVECN              = 50                   // Receive ECN codepoints in the IPv6 header.
+	IPV6_PKTINFO_EX           = 51                   // Receive extended packet information.
+	IPV6_WFP_REDIRECT_RECORDS = 60                   // WFP's Connection Redirect Records
+	IPV6_WFP_REDIRECT_CONTEXT = 70                   // WFP's Connection Redirect Context
+	IPV6_MTU_DISCOVER         = 71                   // Set/get path MTU discover state.
+	IPV6_MTU                  = 72                   // Get path MTU.
+	IPV6_NRT_INTERFACE        = 74                   // Set NRT interface constraint (outbound).
+	IPV6_RECVERR              = 75                   // Receive ICMPv6 errors.
+	IPV6_USER_MTU             = 76                   // Set/get app defined upper bound IP layer MTU.
+)
+
+// IP_UNSPECIFIED_HOP_LIMIT represents an unspecified hop limit
+const IP_UNSPECIFIED_HOP_LIMIT = -1
+
+// IP_PROTECTION_LEVEL is an alias for IPV6_PROTECTION_LEVEL
+const IP_PROTECTION_LEVEL = IPV6_PROTECTION_LEVEL
+
+// Values of IPV6_PROTECTION_LEVEL.
+const (
+	PROTECTION_LEVEL_UNRESTRICTED   = 10       // For peer-to-peer apps.
+	PROTECTION_LEVEL_EDGERESTRICTED = 20       // Same as unrestricted. Except for Teredo.
+	PROTECTION_LEVEL_RESTRICTED     = 30       // For Intranet apps.
+	PROTECTION_LEVEL_DEFAULT        = ^uint(0) // Use UINT_MAX as the default value.
+)
+
+// Maximum length of address literals (potentially including a port number)
+// generated by any address-to-string conversion routine.  This length can
+// be used when declaring buffers used with getnameinfo, WSAAddressToString,
+// inet_ntoa, etc.  We just provide one define, rather than one per api,
+// to avoid confusion.
+//
+// The totals are derived from the following data:
+//
+//	15: IPv4 address
+//	45: IPv6 address including embedded IPv4 address
+//	11: Scope Id
+//	 2: Brackets around IPv6 address when port is present
+//	 6: Port (including colon)
+//	 1: Terminating null byte
+const (
+	INET_ADDRSTRLEN  = 22
+	INET6_ADDRSTRLEN = 65
+)
+
+//
+// Options to use with [gs]etsockopt at the IPPROTO_TCP level.
+// TCP_NODELAY is defined in ws2def.h for historical reasons.
+//
+
+// Offload preferences supported.
+const (
+	TCP_OFFLOAD_NO_PREFERENCE = 0
+	TCP_OFFLOAD_NOT_PREFERRED = 1
+	TCP_OFFLOAD_PREFERRED     = 2
+)
+
+const (
+	TCP_EXPEDITED_1122             = 0x0002
+	TCP_KEEPALIVE                  = 3
+	TCP_MAXSEG                     = 4
+	TCP_MAXRT                      = 5
+	TCP_STDURG                     = 6
+	TCP_NOURG                      = 7
+	TCP_ATMARK                     = 8
+	TCP_NOSYNRETRIES               = 9
+	TCP_TIMESTAMPS                 = 10
+	TCP_OFFLOAD_PREFERENCE         = 11
+	TCP_CONGESTION_ALGORITHM       = 12
+	TCP_DELAY_FIN_ACK              = 13
+	TCP_MAXRTMS                    = 14
+	TCP_FASTOPEN                   = 15
+	TCP_KEEPCNT                    = 16
+	TCP_KEEPIDLE                   = TCP_KEEPALIVE
+	TCP_KEEPINTVL                  = 17
+	TCP_FAIL_CONNECT_ON_ICMP_ERROR = 18
+	TCP_ICMP_ERROR_INFO            = 19
+)
+
+//
+// Options to use with [gs]etsockopt at the IPPROTO_UDP level.
+// UDP_NOCHECKSUM is defined in ws2tcpip.h for historical reasons.
+// UDP_CHECKSUM_COVERAGE is defined in ws2tcpip.h for historical reasons.
+//
+
+const (
+	UDP_SEND_MSG_SIZE           = 2
+	UDP_RECV_MAX_COALESCED_SIZE = 3
+)
+
+// Control message types at the IPPROTO_UDP level.
+const (
+	UDP_COALESCED_INFO = 3
 )
