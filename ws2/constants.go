@@ -1,7 +1,5 @@
 package ws2
 
-import "math"
-
 const (
 	IOC_VOID     = 0x20000000
 	IOC_OUT      = 0x40000000
@@ -449,7 +447,7 @@ const (
 	IP_RECVERR                     = 75 // Receive ICMP errors.
 	IP_USER_MTU                    = 76 // Set/get app defined upper bound IP layer MTU.
 	IP_UNSPECIFIED_TYPE_OF_SERVICE = -1
-	IP_UNSPECIFIED_USER_MTU        = math.MaxUint32
+	IP_UNSPECIFIED_USER_MTU        = 1<<32 - 1
 )
 
 // N.B. These addresses are in network byte order.
@@ -691,3 +689,739 @@ const (
 const (
 	UDP_COALESCED_INFO = 3
 )
+
+/*
+  Winsock2.h
+*/
+
+const WINSOCK_VERSION = 0x0202
+
+const FD_SETSIZE = 64
+
+const (
+	FIONREAD = 0x4004667f // Get # bytes to read
+	FIONBIO  = 0x8004667e // Set/clear non-blocking i/o
+	FIOASYNC = 0x8004667d // Set/clear async i/o
+)
+
+// Constants for socket I/O controls
+const (
+	SIOCSHIWAT = 0x80730000                                // Set high watermark
+	SIOCGHIWAT = (0x40000000 | (4 << 16) | ('s' << 8) | 1) // Get high watermark
+	SIOCSLOWAT = (0x80000000 | (4 << 16) | ('s' << 8) | 2) // Set low watermark
+	SIOCGLOWAT = (0x40000000 | (4 << 16) | ('s' << 8) | 3) // Get low watermark
+	SIOCATMARK = (0x40000000 | (4 << 16) | ('s' << 8) | 7) // At oob mark?
+)
+
+//
+// Constants and structures defined by the internet system,
+// Per RFC 790, September 1981, taken from the BSD file netinet/in.h.
+// IPv6 additions per RFC 2292.
+//
+
+// Link numbers
+const (
+	IMPLINK_IP        = 155
+	IMPLINK_LOWEXPER  = 156
+	IMPLINK_HIGHEXPER = 158
+)
+
+const (
+	WSADESCRIPTION_LEN = 256
+	WSASYS_STATUS_LEN  = 128
+)
+
+// This is used instead of -1, since the SOCKET type is unsigned.
+const INVALID_SOCKET = ^SOCKET(0)
+const SOCKET_ERROR = -1
+
+// The following may be used in place of the address family, socket type, or
+// protocol in a call to WSASocket to indicate that the corresponding value
+// should be taken from the supplied WSAPROTOCOL_INFO structure instead of the
+// parameter itself.
+const FROM_PROTOCOL_INFO = -1
+
+// Types
+const (
+	SOCK_STREAM    = 1 // Stream socket
+	SOCK_DGRAM     = 2 // Datagram socket
+	SOCK_RAW       = 3 // Raw-protocol interface
+	SOCK_RDM       = 4 // Reliably-delivered message
+	SOCK_SEQPACKET = 5 // Sequenced packet stream
+)
+
+// WinSock 2 extension -- new options
+const (
+	SO_PROTOCOL_INFOA = 0x2004 // WSAProtocolInfoA structure
+	SO_PROTOCOL_INFOW = 0x2005 // WSAProtocolInfoW structure
+	PVD_CONFIG        = 0x3001 // Configuration info for service provider connection is not ack-ed to the other side until conditional function returns CF_ACCEPT
+)
+
+// Protocol families, same as address families for now.
+const (
+	PF_UNSPEC    = AF_UNSPEC
+	PF_UNIX      = AF_UNIX
+	PF_INET      = AF_INET
+	PF_IMPLINK   = AF_IMPLINK
+	PF_PUP       = AF_PUP
+	PF_CHAOS     = AF_CHAOS
+	PF_NS        = AF_NS
+	PF_IPX       = AF_IPX
+	PF_ISO       = AF_ISO
+	PF_OSI       = AF_OSI
+	PF_ECMA      = AF_ECMA
+	PF_DATAKIT   = AF_DATAKIT
+	PF_CCITT     = AF_CCITT
+	PF_SNA       = AF_SNA
+	PF_DECnet    = AF_DECnet
+	PF_DLI       = AF_DLI
+	PF_LAT       = AF_LAT
+	PF_HYLINK    = AF_HYLINK
+	PF_APPLETALK = AF_APPLETALK
+	PF_VOICEVIEW = AF_VOICEVIEW
+	PF_FIREFOX   = AF_FIREFOX
+	PF_UNKNOWN1  = AF_UNKNOWN1
+	PF_BAN       = AF_BAN
+	PF_ATM       = AF_ATM
+	PF_INET6     = AF_INET6
+	PF_BTH       = AF_BTH
+	PF_MAX       = AF_MAX
+)
+
+// Maximum queue length specifiable by listen.
+const SOMAXCONN = 0x7fffffff
+
+const (
+	MSG_OOB            = 0x1    // Process out-of-band data
+	MSG_PEEK           = 0x2    // Peek at incoming message
+	MSG_DONTROUTE      = 0x4    // Send without using routing tables
+	MSG_WAITALL        = 0x8    // Do not complete until packet is completely filled
+	MSG_PUSH_IMMEDIATE = 0x20   // Do not delay receive request completion if data is available
+	MSG_PARTIAL        = 0x8000 // Partial send or recv for message xport
+)
+
+// WinSock 2 extension -- new flags for WSASend(), WSASendTo(), WSARecv() and WSARecvFrom()
+const (
+	MSG_INTERRUPT = 0x10 // Send/Recv in the interrupt context
+	MSG_MAXIOVLEN = 16
+)
+
+// Define constant based on rfc883, used by GetHostByxxxx() calls.
+const MAXGETHOSTSTRUCT = 1024
+
+// WinSock 2 extension -- bit values and indices for FD_XXX network events
+const (
+	FD_READ_BIT                     = 0
+	FD_READ                         = 1 << FD_READ_BIT
+	FD_WRITE_BIT                    = 1
+	FD_WRITE                        = 1 << FD_WRITE_BIT
+	FD_OOB_BIT                      = 2
+	FD_OOB                          = 1 << FD_OOB_BIT
+	FD_ACCEPT_BIT                   = 3
+	FD_ACCEPT                       = 1 << FD_ACCEPT_BIT
+	FD_CONNECT_BIT                  = 4
+	FD_CONNECT                      = 1 << FD_CONNECT_BIT
+	FD_CLOSE_BIT                    = 5
+	FD_CLOSE                        = 1 << FD_CLOSE_BIT
+	FD_QOS_BIT                      = 6
+	FD_QOS                          = 1 << FD_QOS_BIT
+	FD_GROUP_QOS_BIT                = 7
+	FD_GROUP_QOS                    = 1 << FD_GROUP_QOS_BIT
+	FD_ROUTING_INTERFACE_CHANGE_BIT = 8
+	FD_ROUTING_INTERFACE_CHANGE     = 1 << FD_ROUTING_INTERFACE_CHANGE_BIT
+	FD_ADDRESS_LIST_CHANGE_BIT      = 9
+	FD_ADDRESS_LIST_CHANGE          = 1 << FD_ADDRESS_LIST_CHANGE_BIT
+	FD_MAX_EVENTS                   = 10
+	FD_ALL_EVENTS                   = (1 << FD_MAX_EVENTS) - 1
+)
+
+// All Windows Sockets error constants are biased by WSABASEERR from
+// the "normal"
+const WSABASEERR = 10000
+
+// Windows Sockets definitions of regular Microsoft C error constants
+const (
+	WSAEINTR  = WSABASEERR + 4
+	WSAEBADF  = WSABASEERR + 9
+	WSAEACCES = WSABASEERR + 13
+	WSAEFAULT = WSABASEERR + 14
+	WSAEINVAL = WSABASEERR + 22
+	WSAEMFILE = WSABASEERR + 24
+)
+
+// Windows Sockets definitions of regular Berkeley error constants
+const (
+	WSAEWOULDBLOCK     = WSABASEERR + 35
+	WSAEINPROGRESS     = WSABASEERR + 36
+	WSAEALREADY        = WSABASEERR + 37
+	WSAENOTSOCK        = WSABASEERR + 38
+	WSAEDESTADDRREQ    = WSABASEERR + 39
+	WSAEMSGSIZE        = WSABASEERR + 40
+	WSAEPROTOTYPE      = WSABASEERR + 41
+	WSAENOPROTOOPT     = WSABASEERR + 42
+	WSAEPROTONOSUPPORT = WSABASEERR + 43
+	WSAESOCKTNOSUPPORT = WSABASEERR + 44
+	WSAEOPNOTSUPP      = WSABASEERR + 45
+	WSAEPFNOSUPPORT    = WSABASEERR + 46
+	WSAEAFNOSUPPORT    = WSABASEERR + 47
+	WSAEADDRINUSE      = WSABASEERR + 48
+	WSAEADDRNOTAVAIL   = WSABASEERR + 49
+	WSAENETDOWN        = WSABASEERR + 50
+	WSAENETUNREACH     = WSABASEERR + 51
+	WSAENETRESET       = WSABASEERR + 52
+	WSAECONNABORTED    = WSABASEERR + 53
+	WSAECONNRESET      = WSABASEERR + 54
+	WSAENOBUFS         = WSABASEERR + 55
+	WSAEISCONN         = WSABASEERR + 56
+	WSAENOTCONN        = WSABASEERR + 57
+	WSAESHUTDOWN       = WSABASEERR + 58
+	WSAETOOMANYREFS    = WSABASEERR + 59
+	WSAETIMEDOUT       = WSABASEERR + 60
+	WSAECONNREFUSED    = WSABASEERR + 61
+	WSAELOOP           = WSABASEERR + 62
+	WSAENAMETOOLONG    = WSABASEERR + 63
+	WSAEHOSTDOWN       = WSABASEERR + 64
+	WSAEHOSTUNREACH    = WSABASEERR + 65
+	WSAENOTEMPTY       = WSABASEERR + 66
+	WSAEPROCLIM        = WSABASEERR + 67
+	WSAEUSERS          = WSABASEERR + 68
+	WSAEDQUOT          = WSABASEERR + 69
+	WSAESTALE          = WSABASEERR + 70
+	WSAEREMOTE         = WSABASEERR + 71
+)
+
+// Extended Windows Sockets error constant definitions
+const (
+	WSASYSNOTREADY         = WSABASEERR + 91
+	WSAVERNOTSUPPORTED     = WSABASEERR + 92
+	WSANOTINITIALISED      = WSABASEERR + 93
+	WSAEDISCON             = WSABASEERR + 101
+	WSAENOMORE             = WSABASEERR + 102
+	WSAECANCELLED          = WSABASEERR + 103
+	WSAEINVALIDPROCTABLE   = WSABASEERR + 104
+	WSAEINVALIDPROVIDER    = WSABASEERR + 105
+	WSAEPROVIDERFAILEDINIT = WSABASEERR + 106
+	WSASYSCALLFAILURE      = WSABASEERR + 107
+	WSASERVICE_NOT_FOUND   = WSABASEERR + 108
+	WSATYPE_NOT_FOUND      = WSABASEERR + 109
+	WSA_E_NO_MORE          = WSABASEERR + 110
+	WSA_E_CANCELLED        = WSABASEERR + 111
+	WSAEREFUSED            = WSABASEERR + 112
+)
+
+//
+// Error return codes from GetHostByName() and GetHostByAddr()
+// (when using the resolver). Note that these errors are
+// retrieved via WSAGetLastError() and must therefore follow
+// the rules for avoiding clashes with error numbers from
+// specific implementations or language run-time systems.
+// For this reason the codes are based at WSABASEERR+1001.
+// Note also that [WSA]NO_ADDRESS is defined only for
+// compatibility purposes.
+//
+
+// Authoritative Answer: Host not found
+const WSAHOST_NOT_FOUND = WSABASEERR + 1001
+
+// Non-Authoritative: Host not found, or SERVERFAIL
+const WSATRY_AGAIN = WSABASEERR + 1002
+
+// Non-recoverable errors, FORMERR, REFUSED, NOTIMP
+const WSANO_RECOVERY = WSABASEERR + 1003
+
+// Valid name, no data record of requested type
+const WSANO_DATA = WSABASEERR + 1004
+
+// Define QOS related error return codes
+const (
+	WSA_QOS_RECEIVERS          = WSABASEERR + 1005 // At least one Reserve has arrived
+	WSA_QOS_SENDERS            = WSABASEERR + 1006 // At least one Path has arrived
+	WSA_QOS_NO_SENDERS         = WSABASEERR + 1007 // There are no senders
+	WSA_QOS_NO_RECEIVERS       = WSABASEERR + 1008 // There are no receivers
+	WSA_QOS_REQUEST_CONFIRMED  = WSABASEERR + 1009 // Reserve has been confirmed
+	WSA_QOS_ADMISSION_FAILURE  = WSABASEERR + 1010 // Error due to lack of resources
+	WSA_QOS_POLICY_FAILURE     = WSABASEERR + 1011 // Rejected for administrative reasons - bad credentials
+	WSA_QOS_BAD_STYLE          = WSABASEERR + 1012 // Unknown or conflicting style
+	WSA_QOS_BAD_OBJECT         = WSABASEERR + 1013 // Problem with some part of the filterspec or providerspecific buffer in general
+	WSA_QOS_TRAFFIC_CTRL_ERROR = WSABASEERR + 1014 // Problem with some part of the flowspec
+	WSA_QOS_GENERIC_ERROR      = WSABASEERR + 1015 // General error
+	WSA_QOS_ESERVICETYPE       = WSABASEERR + 1016 // Invalid service type in flowspec
+	WSA_QOS_EFLOWSPEC          = WSABASEERR + 1017 // Invalid flowspec
+	WSA_QOS_EPROVSPECBUF       = WSABASEERR + 1018 // Invalid provider specific buffer
+	WSA_QOS_EFILTERSTYLE       = WSABASEERR + 1019 // Invalid filter style
+	WSA_QOS_EFILTERTYPE        = WSABASEERR + 1020 // Invalid filter type
+	WSA_QOS_EFILTERCOUNT       = WSABASEERR + 1021 // Incorrect number of filters
+	WSA_QOS_EOBJLENGTH         = WSABASEERR + 1022 // Invalid object length
+	WSA_QOS_EFLOWCOUNT         = WSABASEERR + 1023 // Incorrect number of flows
+	WSA_QOS_EUNKOWNPSOBJ       = WSABASEERR + 1024 // Unknown object in provider specific buffer
+	WSA_QOS_EPOLICYOBJ         = WSABASEERR + 1025 // Invalid policy object in provider specific buffer
+	WSA_QOS_EFLOWDESC          = WSABASEERR + 1026 // Invalid flow descriptor in the list
+	WSA_QOS_EPSFLOWSPEC        = WSABASEERR + 1027 // Inconsistent flow spec in provider specific buffer
+	WSA_QOS_EPSFILTERSPEC      = WSABASEERR + 1028 // Invalid filter spec in provider specific buffer
+	WSA_QOS_ESDMODEOBJ         = WSABASEERR + 1029 // Invalid shape discard mode object in provider specific buffer
+	WSA_QOS_ESHAPERATEOBJ      = WSABASEERR + 1030 // Invalid shaping rate object in provider specific buffer
+	WSA_QOS_RESERVED_PETYPE    = WSABASEERR + 1031 // Reserved policy element in provider specific buffer
+)
+
+const (
+	WSA_IO_PENDING        = 997
+	WSA_IO_INCOMPLETE     = 996
+	WSA_INVALID_HANDLE    = 6
+	WSA_INVALID_PARAMETER = 87
+	WSA_NOT_ENOUGH_MEMORY = 8
+	WSA_OPERATION_ABORTED = 995
+)
+
+const (
+	WSA_INVALID_EVENT       = WSAEVENT(0)
+	WSA_MAXIMUM_WAIT_EVENTS = 64
+	WSA_WAIT_FAILED         = uint32(0xFFFFFFFF)
+	WSA_WAIT_EVENT_0        = 0x00000000
+	WSA_WAIT_IO_COMPLETION  = 0x00000100
+	WSA_WAIT_TIMEOUT        = 0x00000102
+	WSA_INFINITE            = 0xFFFFFFFF
+)
+
+// WinSock 2 extension -- manifest constants for return values of the condition function
+const (
+	CF_ACCEPT = 0x0000
+	CF_REJECT = 0x0001
+	CF_DEFER  = 0x0002
+)
+
+// WinSock 2 extension -- manifest constants for Shutdown()
+const (
+	SD_RECEIVE = 0x00
+	SD_SEND    = 0x01
+	SD_BOTH    = 0x02
+)
+
+// WinSock 2 extension -- data type and manifest constants for socket groups
+const (
+	SG_UNCONSTRAINED_GROUP = 0x01
+	SG_CONSTRAINED_GROUP   = 0x02
+)
+
+// WinSock 2 extension -- WSAProtocolInfo structure and associated
+// manifest constants
+const (
+	MAX_PROTOCOL_CHAIN = 7
+)
+
+const (
+	BASE_PROTOCOL    = 1
+	LAYERED_PROTOCOL = 0
+	WSAPROTOCOL_LEN  = 255
+)
+
+// Flag bit definitions for ProviderFlags
+const (
+	PFL_MULTIPLE_PROTO_ENTRIES  = 0x00000001
+	PFL_RECOMMENDED_PROTO_ENTRY = 0x00000002
+	PFL_HIDDEN                  = 0x00000004
+	PFL_MATCHES_PROTOCOL_ZERO   = 0x00000008
+	PFL_NETWORKDIRECT_PROVIDER  = 0x00000010
+)
+
+// Flag bit definitions for ServiceFlags1
+const (
+	XP1_CONNECTIONLESS           = 0x00000001
+	XP1_GUARANTEED_DELIVERY      = 0x00000002
+	XP1_GUARANTEED_ORDER         = 0x00000004
+	XP1_MESSAGE_ORIENTED         = 0x00000008
+	XP1_PSEUDO_STREAM            = 0x00000010
+	XP1_GRACEFUL_CLOSE           = 0x00000020
+	XP1_EXPEDITED_DATA           = 0x00000040
+	XP1_CONNECT_DATA             = 0x00000080
+	XP1_DISCONNECT_DATA          = 0x00000100
+	XP1_SUPPORT_BROADCAST        = 0x00000200
+	XP1_SUPPORT_MULTIPOINT       = 0x00000400
+	XP1_MULTIPOINT_CONTROL_PLANE = 0x00000800
+	XP1_MULTIPOINT_DATA_PLANE    = 0x00001000
+	XP1_QOS_SUPPORTED            = 0x00002000
+	XP1_INTERRUPT                = 0x00004000
+	XP1_UNI_SEND                 = 0x00008000
+	XP1_UNI_RECV                 = 0x00010000
+	XP1_IFS_HANDLES              = 0x00020000
+	XP1_PARTIAL_MESSAGE          = 0x00040000
+	XP1_SAN_SUPPORT_SDP          = 0x00080000
+)
+
+const (
+	BIGENDIAN    = 0x0000
+	LITTLEENDIAN = 0x0001
+)
+
+const SECURITY_PROTOCOL_NONE = 0x0000
+
+// WinSock 2 extension -- manifest constants for WSAJoinLeaf()
+const (
+	JL_SENDER_ONLY   = 0x01
+	JL_RECEIVER_ONLY = 0x02
+	JL_BOTH          = 0x04
+)
+
+// WinSock 2 extension -- manifest constants for WSASocket()
+const (
+	WSA_FLAG_OVERLAPPED             = 0x01
+	WSA_FLAG_MULTIPOINT_C_ROOT      = 0x02
+	WSA_FLAG_MULTIPOINT_C_LEAF      = 0x04
+	WSA_FLAG_MULTIPOINT_D_ROOT      = 0x08
+	WSA_FLAG_MULTIPOINT_D_LEAF      = 0x10
+	WSA_FLAG_ACCESS_SYSTEM_SECURITY = 0x40
+	WSA_FLAG_NO_HANDLE_INHERIT      = 0x80
+	WSA_FLAG_REGISTERED_IO          = 0x100
+)
+
+// WinSock 2 extension -- manifest constants for SIO_TRANSLATE_HANDLE ioctl
+const (
+	TH_NETDEV = 0x00000001
+	TH_TAPI   = 0x00000002
+)
+
+// Service Install Flags
+const SERVICE_MULTIPLE = 0x00000001
+
+// Resolution flags for WSAGetAddressByName().
+// Note these are also used by the 1.1 API GetAddressByName, so leave them around.
+const (
+	RES_UNUSED_1    = 0x00000001
+	RES_FLUSH_CACHE = 0x00000002
+	RES_SERVICE     = 0x00000004
+)
+
+// Well known value names for Service Types
+const (
+	SERVICE_TYPE_VALUE_IPXPORTA  = "IpxSocket"
+	SERVICE_TYPE_VALUE_IPXPORTW  = "IpxSocket"
+	SERVICE_TYPE_VALUE_SAPIDA    = "SapId"
+	SERVICE_TYPE_VALUE_SAPIDW    = "SapId"
+	SERVICE_TYPE_VALUE_TCPPORTA  = "TcpPort"
+	SERVICE_TYPE_VALUE_TCPPORTW  = "TcpPort"
+	SERVICE_TYPE_VALUE_UDPPORTA  = "UdpPort"
+	SERVICE_TYPE_VALUE_UDPPORTW  = "UdpPort"
+	SERVICE_TYPE_VALUE_OBJECTIDA = "ObjectId"
+	SERVICE_TYPE_VALUE_OBJECTIDW = "ObjectId"
+)
+
+// Lookup flags for WSALookupServiceBegin/Next.
+const (
+	LUP_DEEP                     = 0x00000001
+	LUP_CONTAINERS               = 0x00000002
+	LUP_NOCONTAINERS             = 0x00000004
+	LUP_NEAREST                  = 0x00000008
+	LUP_RETURN_NAME              = 0x00000010
+	LUP_RETURN_TYPE              = 0x00000020
+	LUP_RETURN_VERSION           = 0x00000040
+	LUP_RETURN_COMMENT           = 0x00000080
+	LUP_RETURN_ADDR              = 0x00000100
+	LUP_RETURN_BLOB              = 0x00000200
+	LUP_RETURN_ALIASES           = 0x00000400
+	LUP_RETURN_QUERY_STRING      = 0x00000800
+	LUP_RETURN_ALL               = 0x00000FF0
+	LUP_RES_SERVICE              = 0x00008000
+	LUP_FLUSHCACHE               = 0x00001000
+	LUP_FLUSHPREVIOUS            = 0x00002000
+	LUP_NON_AUTHORITATIVE        = 0x00004000
+	LUP_SECURE                   = 0x00008000
+	LUP_RETURN_PREFERRED_NAMES   = 0x00010000
+	LUP_DNS_ONLY                 = 0x00020000
+	LUP_RETURN_RESPONSE_FLAGS    = 0x00040000
+	LUP_ADDRCONFIG               = 0x00100000
+	LUP_DUAL_ADDR                = 0x00200000
+	LUP_FILESERVER               = 0x00400000
+	LUP_DISABLE_IDN_ENCODING     = 0x00800000
+	LUP_API_ANSI                 = 0x01000000
+	LUP_EXTENDED_QUERYSET        = 0x02000000
+	LUP_SECURE_WITH_FALLBACK     = 0x04000000
+	LUP_EXCLUSIVE_CUSTOM_SERVERS = 0x08000000
+	LUP_REQUIRE_SECURE           = 0x10000000
+	LUP_RETURN_TTL               = 0x20000000
+	LUP_FORCE_CLEAR_TEXT         = 0x40000000
+	LUP_RESOLUTION_HANDLE        = 0x80000000
+)
+
+// Service Address Registration and Deregistration Data Types.
+const (
+	RNRSERVICE_REGISTER WSAESETSERVICEOP = iota
+	RNRSERVICE_DEREGISTER
+	RNRSERVICE_DELETE
+)
+
+// Return flags
+const (
+	RESULT_IS_ALIAS   = 0x0001
+	RESULT_IS_ADDED   = 0x0010
+	RESULT_IS_CHANGED = 0x0020
+	RESULT_IS_DELETED = 0x0040
+)
+
+// Event flag definitions for WSAPoll().
+const (
+	POLLRDNORM = 0x0100
+	POLLRDBAND = 0x0200
+	POLLIN     = POLLRDNORM | POLLRDBAND
+	POLLPRI    = 0x0400
+	POLLWRNORM = 0x0010
+	POLLOUT    = POLLWRNORM
+	POLLWRBAND = 0x0020
+	POLLERR    = 0x0001
+	POLLHUP    = 0x0002
+	POLLNVAL   = 0x0004
+)
+
+// Socket notification registration events. Supplied during registration.
+// Indicates that a notification should be issued for the event if its
+// condition holds.
+const (
+	SOCK_NOTIFY_REGISTER_EVENT_NONE   = 0x00
+	SOCK_NOTIFY_REGISTER_EVENT_IN     = 0x01 // Input is available from the socket without blocking.
+	SOCK_NOTIFY_REGISTER_EVENT_OUT    = 0x02 // Output can be provided to the socket without blocking.
+	SOCK_NOTIFY_REGISTER_EVENT_HANGUP = 0x04 // The socket connection has been terminated.
+)
+const SOCK_NOTIFY_REGISTER_EVENTS_ALL = SOCK_NOTIFY_REGISTER_EVENT_IN | SOCK_NOTIFY_REGISTER_EVENT_OUT | SOCK_NOTIFY_REGISTER_EVENT_HANGUP
+
+// Socket notification events. These are the events possible when a notification
+// is received.
+//
+// The SOCK_NOTIFY_EVENT_ERR and SOCK_NOTIFY_EVENT_REMOVE events
+// may be indicated regardless of registration.
+//
+// If a SOCK_NOTIFY_EVENT_REMOVE event is indicated, no more notifications will
+// be provided.
+const (
+	SOCK_NOTIFY_EVENT_IN     = SOCK_NOTIFY_REGISTER_EVENT_IN     // Input is available from the socket without blocking.
+	SOCK_NOTIFY_EVENT_OUT    = SOCK_NOTIFY_REGISTER_EVENT_OUT    // Output can be provided to the socket without blocking.
+	SOCK_NOTIFY_EVENT_HANGUP = SOCK_NOTIFY_REGISTER_EVENT_HANGUP // The socket connection has been terminated.
+	SOCK_NOTIFY_EVENT_ERR    = 0x40                              // The socket is in an error state.
+	SOCK_NOTIFY_EVENT_REMOVE = 0x80                              // The notification has been deregistered.
+)
+const SOCK_NOTIFY_EVENTS_ALL = SOCK_NOTIFY_REGISTER_EVENTS_ALL | SOCK_NOTIFY_EVENT_ERR | SOCK_NOTIFY_EVENT_REMOVE
+
+// Socket notification registration operations. One operation must be supplied at
+// a time.
+//
+// A SOCK_NOTIFY_OP_DISABLE operation will not destroy the underlying structures.
+//
+// A SOCK_NOTIFY_OP_REMOVE operation will cause a SOCK_NOTIFY_REMOVE notification
+// to be delivered when the operation completes successfully.
+const (
+	SOCK_NOTIFY_OP_NONE    = 0x00
+	SOCK_NOTIFY_OP_ENABLE  = 0x01 // Enables the registration.
+	SOCK_NOTIFY_OP_DISABLE = 0x02 // Disables the registration.
+	SOCK_NOTIFY_OP_REMOVE  = 0x04 // Removes the registration.
+)
+
+// Socket notification trigger behaviors.
+//
+// When operation is SOCK_NOTIFY_OP_ENABLE:
+//   - One of SOCK_NOTIFY_TRIGGER_PERSISTENT or SOCK_NOTIFY_TRIGGER_ONESHOT must be supplied
+//   - One of SOCK_NOTIFY_TRIGGER_LEVEL or SOCK_NOTIFY_TRIGGER_EDGE must be supplied
+//
+// SOCK_NOTIFY_TRIGGER_PERSISTENT is not compatible with SOCK_NOTIFY_TRIGGER_ONESHOT.
+// SOCK_NOTIFY_TRIGGER_LEVEL is not compatible with SOCK_NOTIFY_TRIGGER_EDGE.
+//
+// Socket notification trigger types.
+const (
+	SOCK_NOTIFY_TRIGGER_ONESHOT    = 0x01 // The registration will be disabled (not removed) upon delivery of the next notification.
+	SOCK_NOTIFY_TRIGGER_PERSISTENT = 0x02 // The registration will remain active until it is explicitly disabled or removed.
+	SOCK_NOTIFY_TRIGGER_LEVEL      = 0x04 // The registration is for level-triggered notifications.
+	SOCK_NOTIFY_TRIGGER_EDGE       = 0x08 // The registration is for edge-triggered notifications.
+)
+const SOCK_NOTIFY_TRIGGER_ALL = SOCK_NOTIFY_TRIGGER_ONESHOT | SOCK_NOTIFY_TRIGGER_PERSISTENT | SOCK_NOTIFY_TRIGGER_LEVEL | SOCK_NOTIFY_TRIGGER_EDGE
+
+/*
+  MSWSock.h
+*/
+
+// Options for connect and disconnect data and options.  Used only by
+// non-TCP/IP transports such as DECNet, OSI TP4, etc.
+const (
+	SO_CONNDATA    = 0x7000
+	SO_CONNOPT     = 0x7001
+	SO_DISCDATA    = 0x7002
+	SO_DISCOPT     = 0x7003
+	SO_CONNDATALEN = 0x7004
+	SO_CONNOPTLEN  = 0x7005
+	SO_DISCDATALEN = 0x7006
+	SO_DISCOPTLEN  = 0x7007
+)
+
+// Option for opening sockets for synchronous access.
+const (
+	SO_OPENTYPE             = 0x7008
+	SO_SYNCHRONOUS_ALERT    = 0x10
+	SO_SYNCHRONOUS_NONALERT = 0x20
+)
+
+// Other NT-specific options.
+const (
+	SO_MAXDG                  = 0x7009
+	SO_MAXPATHDG              = 0x700A
+	SO_UPDATE_ACCEPT_CONTEXT  = 0x700B
+	SO_CONNECT_TIME           = 0x700C
+	SO_UPDATE_CONNECT_CONTEXT = 0x7010
+)
+
+// TCP options.
+const TCP_BSDURGENT = 0x7000
+
+// MS Transport Provider IOCTL to control
+// reporting PORT_UNREACHABLE messages
+// on UDP sockets via Recv/WSARecv/etc.
+// Pass TRUE in input buffer to enable (default if supported),
+// FALSE to disable.
+const SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12
+
+// MS Transport Provider IOCTL to request
+// notification when a given socket is closed.
+// Input buffer must be a pointer to the socket handle.
+// Input buffer size must be exactly sizeof(HANDLE).
+// Output buffer and output buffer length must be
+// NULL and 0 respectively. This IOCTL must always
+// be issued with an overlapped structure.
+//
+// This Ioctl code is available only on WinXP SP2 and Win2k3 SP1.
+const SIO_SOCKET_CLOSE_NOTIFY = IOC_IN | IOC_VENDOR | 13
+
+// MS Transport Provider IOCTL to control
+// reporting NET_UNREACHABLE (TTL expired) messages
+// on UDP sockets via Recv/WSARecv/Etc.
+// Pass TRUE in input buffer to enabled (default if supported),
+// FALSE to disable.
+const SIO_UDP_NETRESET = 0x9800000F
+
+const (
+	TF_DISCONNECT         = 0x01
+	TF_REUSE_SOCKET       = 0x02
+	TF_WRITE_BEHIND       = 0x04
+	TF_USE_DEFAULT_WORKER = 0x00
+	TF_USE_SYSTEM_THREAD  = 0x10
+	TF_USE_KERNEL_APC     = 0x20
+)
+
+var WSAID_TRANSMITFILE = GUID{
+	Data1: 0xb5367df0,
+	Data2: 0xcbac,
+	Data3: 0x11cf,
+	Data4: [8]byte{0x95, 0xca, 0x00, 0x80, 0x5f, 0x48, 0xa1, 0x92},
+}
+
+var WSAID_ACCEPTEX = GUID{
+	Data1: 0xb5367df1,
+	Data2: 0xcbac,
+	Data3: 0x11cf,
+	Data4: [8]byte{0x95, 0xca, 0x00, 0x80, 0x5f, 0x48, 0xa1, 0x92},
+}
+
+var WSAID_GETACCEPTEXSOCKADDRS = GUID{
+	Data1: 0xb5367df2,
+	Data2: 0xcbac,
+	Data3: 0x11cf,
+	Data4: [8]byte{0x95, 0xca, 0x00, 0x80, 0x5f, 0x48, 0xa1, 0x92},
+}
+
+const (
+	TP_ELEMENT_MEMORY     = 1
+	TP_ELEMENT_FILE       = 2
+	TP_ELEMENT_EOP        = 4
+	TP_DISCONNECT         = TF_DISCONNECT
+	TP_REUSE_SOCKET       = TF_REUSE_SOCKET
+	TP_USE_DEFAULT_WORKER = TF_USE_DEFAULT_WORKER
+	TP_USE_SYSTEM_THREAD  = TF_USE_SYSTEM_THREAD
+	TP_USE_KERNEL_APC     = TF_USE_KERNEL_APC
+)
+
+var WSAID_TRANSMITPACKETS = GUID{
+	Data1: 0xd9689da0,
+	Data2: 0x1f90,
+	Data3: 0x11d3,
+	Data4: [8]byte{0x99, 0x71, 0x00, 0xc0, 0x4f, 0x68, 0xc8, 0x76},
+}
+
+var WSAID_CONNECTEX = GUID{
+	Data1: 0x25a207b9,
+	Data2: 0xddf3,
+	Data3: 0x4660,
+	Data4: [8]byte{0x8e, 0xe9, 0x76, 0xe5, 0x8c, 0x74, 0x06, 0x3e},
+}
+
+var WSAID_DISCONNECTEX = GUID{
+	Data1: 0x7fda2e11,
+	Data2: 0x8630,
+	Data3: 0x436f,
+	Data4: [8]byte{0xa0, 0x31, 0xf5, 0x36, 0xa6, 0xee, 0xc1, 0x57},
+}
+
+const DE_REUSE_SOCKET = TF_REUSE_SOCKET
+
+// Network-location awareness -- Name registration values for use
+// with WSASetService and other structures.
+var NLA_NAMESPACE = GUID{
+	Data1: 0x6642243a,
+	Data2: 0x3ba8,
+	Data3: 0x4aa6,
+	Data4: [8]byte{0xba, 0xa5, 0x2e, 0x0b, 0xd7, 0x1f, 0xdd, 0x83},
+}
+
+var NLA_SERVICE_CLASS = GUID{
+	Data1: 0x0037e515,
+	Data2: 0xb5c9,
+	Data3: 0x4a43,
+	Data4: [8]byte{0xba, 0xda, 0x8b, 0x48, 0xa8, 0x7a, 0xd2, 0x39},
+}
+
+const NLA_ALLUSERS_NETWORK = 0x00000001
+
+const NLA_FRIENDLY_NAME = 0x00000002
+
+var WSAID_WSARECVMSG = GUID{
+	Data1: 0xf689d7c8,
+	Data2: 0x6f1f,
+	Data3: 0x436b,
+	Data4: [8]byte{0x8a, 0x53, 0xe5, 0x4f, 0xe3, 0x51, 0xc3, 0x22},
+}
+
+// Ioctl codes for translating socket handles to the base provider handle.
+// This is performed to prevent breaking non-IFS LSPs when new Winsock extension
+// funtions are added.
+const (
+	SIO_BSP_HANDLE        = 0x4800001B
+	SIO_BSP_HANDLE_SELECT = 0x4800001C
+	SIO_BSP_HANDLE_POLL   = 0x4800001D
+)
+
+// Ioctl code used to translate a socket handle into the base provider's handle.
+// This is not used by any Winsock extension function and should not be intercepted
+// by Winsock LSPs.
+const (
+	SIO_BASE_HANDLE = 0x48000022
+)
+
+// Ioctl codes for Winsock extension functions.
+const (
+	SIO_EXT_SELECT  = 0xC800001E
+	SIO_EXT_POLL    = 0xC800001F
+	SIO_EXT_SENDMSG = 0xC8000020
+)
+
+var WSAID_WSASENDMSG = GUID{
+	Data1: 0xa441e712,
+	Data2: 0x754f,
+	Data3: 0x43ca,
+	Data4: [8]byte{0x84, 0xa7, 0x0d, 0xee, 0x44, 0xcf, 0x60, 0x6d},
+}
+
+var WSAID_WSAPOLL = GUID{
+	Data1: 0x18C76F85,
+	Data2: 0xDC66,
+	Data3: 0x4964,
+	Data4: [8]byte{0x97, 0x2E, 0x23, 0xC2, 0x72, 0x38, 0x31, 0x2B},
+}
+
+var WSAID_MULTIPLE_RIO = GUID{
+	Data1: 0x8509e081,
+	Data2: 0x96dd,
+	Data3: 0x4005,
+	Data4: [8]byte{0xb1, 0x65, 0x9e, 0x2e, 0xe8, 0xc7, 0x9e, 0x3f},
+}
