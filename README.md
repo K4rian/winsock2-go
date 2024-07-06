@@ -5,6 +5,9 @@ WinSock2 binding for Go without CGO.
 
 ---
 ## API Status
+<details>
+<summary>Click to expand</summary>
+
 Status                                                                                                                                                               | Function                         | C++                              | Notes
 :---:                                                                                                                                                                | :---                             | :---                             | :---
 <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | __WSAFDIsSet                     | __WSAFDIsSet                     | 
@@ -101,9 +104,9 @@ Status                                                                          
 <img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAGetLastError                  | WSAGetLastError                  | Always returns 0.
 ...
 
-&nbsp; | &nbsp;  | &nbsp;   | &nbsp;
-:---:  | :---:   | :---:    | :---:
-&nbsp; <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center"> Implemented | <img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center"> Partial | <img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center"> Broken | <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> Unimplemented
+<img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="14px" align="center"> <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center"> Implemented <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center"> Partial <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center"> Broken <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> Unimplemented
+
+</details>
 
 ## License
 [BSD 3-Clause][1]
