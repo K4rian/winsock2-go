@@ -1,7 +1,9 @@
 winsock2-go
 =====
 
-WinSock2 binding for Go without CGO.
+WinSock2 API binding for Go without CGO.
+
+<p align="center"><a href="#api-status">API Status</a> &bull; <a href="#installation">Installation</a> &bull; <!--<a href="#usage">Usage</a> &bull;--> <a href="#license">License</a></p>
 
 ---
 ## API Status
@@ -102,13 +104,78 @@ Status                                                                          
 <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAEnumProtocolsW                | WSAEnumProtocolsW                |
 <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAEventSelect                   | WSAEventSelect                   |
 <img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAGetLastError                  | WSAGetLastError                  | Always returns 0.
-...
-
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAGetOverlappedResult           | WSAGetOverlappedResult           |
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAGetQOSByName                  | WSAGetQOSByName                  | The WSABuf isn't populated, even with a NT string.
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAGetServiceClassInfoA          | WSAGetServiceClassInfoA          | Can't get it to work: "An invalid argument was supplied.".
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAGetServiceClassInfoW          | WSAGetServiceClassInfoW          | Can't get it to work: "An invalid argument was supplied.".
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAGetServiceClassNameByClassIdA | WSAGetServiceClassNameByClassIdA | Crash, tried many approaches without success. (0xc0000005 - Access Violation)
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAGetServiceClassNameByClassIdW | WSAGetServiceClassNameByClassIdW | Crash, tried many approaches without success. (0xc0000005 - Access Violation)
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAHtonl                         | WSAHtonl                         |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAHtons                         | WSAHtons                         |
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAInstallServiceClassA          | WSAInstallServiceClassA          | Raise an "A socket operation was attempted to an unreachable host" error(?).
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSAInstallServiceClassW          | WSAInstallServiceClassW          | Raise an "A socket operation was attempted to an unreachable host" error(?).
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSAIoctl                         | WSAIoctl                         | The `completionRoutine` parameter is always ignored.
+<img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSAIsBlocking                    | WSAIsBlocking                    | Ignored.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAJoinLeaf                      | WSAJoinLeaf                      | Untested.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSALookupServiceBeginA           | WSALookupServiceBeginA           |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSALookupServiceBeginW           | WSALookupServiceBeginW           |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSALookupServiceEnd              | WSALookupServiceEnd              |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSALookupServiceNextA            | WSALookupServiceNextA            |
+<img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center">               | WSALookupServiceNextW            | WSALookupServiceNextW            | Crash, even with a valid handle from WSALookupServiceBeginW.
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSANSPIoctl                      | WSANSPIoctl                      | The `completion` parameter is always ignored.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSANtohl                         | WSANtohl                         |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSANtohs                         | WSANtohs                         |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAPoll                          | WSAPoll                          |
+<img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSAProviderCompleteAsyncCall     | WSAProviderCompleteAsyncCall     | Ignored.
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSAProviderConfigChange          | WSAProviderConfigChange          | The `completionRoutine` parameter is always ignored.
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSARecv                          | WSARecv                          | The `completionRoutine` parameter is always ignored.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSARecvDisconnect                | WSARecvDisconnect                |
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSARecvFrom                      | WSARecvFrom                      | The `completionRoutine` parameter is always ignored.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSARemoveServiceClass            | WSARemoveServiceClass            |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAResetEvent                    | WSAResetEvent                    |
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSASend                          | WSASend                          | The `completionRoutine` parameter is always ignored.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSASendDisconnect                | WSASendDisconnect                |
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSASendMsg                       | WSASendMsg                       | Untested / The `completionRoutine` parameter is always ignored.
+<img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center">             | WSASendTo                        | WSASendTo                        | The `completionRoutine` parameter is always ignored.
+<img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSASetBlockingHook               | WSASetBlockingHook               | Ignored.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSASetEvent                      | WSASetEvent                      |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSASetLastError                  | WSASetLastError                  | Seems to works, not sure with the GetLastError issue.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSASetServiceA                   | WSASetServiceA                   | Seems to works, not depth tested.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSASetServiceW                   | WSASetServiceW                   | Seems to works, not depth tested.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSASocketA                       | WSASocketA                       |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSASocketW                       | WSASocketW                       |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAStartup                       | WSAStartup                       |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAStringToAddressA              | WSAStringToAddressA              |
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAStringToAddressW              | WSAStringToAddressW              |
+<img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSAUnadvertiseProvider           | WSAUnadvertiseProvider           | Ignored.
+<img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSAUnhookBlockingHook            | WSAUnhookBlockingHook            | Ignored.
+<img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAWaitForMultipleEvents         | WSAWaitForMultipleEvents         |
+<img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSApSetPostRoutine               | WSApSetPostRoutine               | Ignored.
+<img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSC*                             |                                  | Ignored.
+<br>
+---
 <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="14px" align="center"> <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center"> Implemented <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center"> Partial <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center"> Broken <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> Unimplemented
+
+---
 
 </details>
 
-## License
-[BSD 3-Clause][1]
+## Installation
+To install the package, use `go get`:
+```bash
+go get -u github.com/K4rian/winsock2-go/ws2
+```
 
-[1]: LICENSE "BSD 3-Clause License"
+Then import it in your project:
+```go
+import "github.com/K4rian/winsock2-go/ws2"
+```
+<!--
+## Usage
+See [examples/][1]
+-->
+## License
+[BSD 3-Clause][2]
+
+[1]: https://github.com/K4rian/winsock2-go/examples "Examples"
+[2]: https://github.com/K4rian/winsock2-go/blob/main/LICENSE "BSD 3-Clause License"
