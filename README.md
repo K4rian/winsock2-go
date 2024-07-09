@@ -179,5 +179,5 @@ See [examples/][1]
 ## License
 [BSD 3-Clause][2]
 
-[1]: https://github.com/K4rian/winsock2-go/examples "Examples"
+[1]: https://github.com/K4rian/winsock2-go/tree/main/examples "Examples"
 [2]: https://github.com/K4rian/winsock2-go/blob/main/LICENSE "BSD 3-Clause License"
