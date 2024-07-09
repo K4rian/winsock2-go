@@ -152,7 +152,6 @@ Status                                                                          
 <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center">     | WSAWaitForMultipleEvents         | WSAWaitForMultipleEvents         |
 <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSApSetPostRoutine               | WSApSetPostRoutine               | Ignored.
 <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSC*                             |                                  | Ignored.
-<br>
 
 ---
 
