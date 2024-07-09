@@ -3,7 +3,7 @@ winsock2-go
 
 WinSock2 API binding for Go without CGO.
 
-<p align="center"><a href="#api-status">API Status</a> &bull; <a href="#installation">Installation</a> &bull; <!--<a href="#usage">Usage</a> &bull;--> <a href="#license">License</a></p>
+<p align="center"><a href="#api-status">API Status</a> &bull; <a href="#installation">Installation</a> &bull; <a href="#usage">Usage</a> &bull; <a href="#license">License</a></p>
 
 ---
 ## API Status
@@ -153,7 +153,9 @@ Status                                                                          
 <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSApSetPostRoutine               | WSApSetPostRoutine               | Ignored.
 <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> | WSC*                             |                                  | Ignored.
 <br>
+
 ---
+
 <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="14px" align="center"> <img alt="implemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_implemented.svg" height="24px" width="24px" align="center"> Implemented <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="partial" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_partial.svg" height="24px" width="24px" align="center"> Partial <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="broken" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_broken.svg" height="24px" width="24px" align="center"> Broken <img alt="" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_blank.svg" height="12px" width="8px" align="center"> <img alt="unimplemented" src="https://raw.githubusercontent.com/K4rian/winsock2-go/assets/icons/bullet_unimplemented.svg" height="24px" width="24px" align="center"> Unimplemented
 
 ---
@@ -170,10 +172,10 @@ Then import it in your project:
 ```go
 import "github.com/K4rian/winsock2-go/ws2"
 ```
-<!--
+
 ## Usage
 See [examples/][1]
--->
+
 ## License
 [BSD 3-Clause][2]
 
