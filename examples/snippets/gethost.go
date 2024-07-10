@@ -10,10 +10,10 @@ import (
 
 /*
 Demonstrate the usage of the following functions:
-- GetHostByAddr:
-- GetHostByName:
-- GetHostNameA:
-- GetHostNameW:
+- GetHostByAddr: Retrieves the host information corresponding to a network address.
+- GetHostByName: Retrieves host information corresponding to a host name from a host database.
+- GetHostNameA:  Retrieves the standard host name for the local computer.
+- GetHostNameW:  Retrieves the standard host name for the local computer as a Unicode string.
 */
 
 func ExampleGetHostByAddr() {
