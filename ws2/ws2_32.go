@@ -1216,8 +1216,8 @@ func WSAGetServiceClassNameByClassIdW(serviceClassId *GUID, serviceClassName *ui
 	return 0, nil
 }
 
-// WSAHtonl converts a signed long (int32) from host byte order to network byte order.
-func WSAHtonl(s SOCKET, hostLong int32, netLong *int32) (int, error) {
+// WSAHtonl converts a unsigned long (uint32) from host byte order to network byte order.
+func WSAHtonl(s SOCKET, hostLong uint32, netLong *uint32) (int, error) {
 	ret, _, err := procWSAHtonl.Call(
 		uintptr(s),
 		uintptr(hostLong),
@@ -1229,8 +1229,8 @@ func WSAHtonl(s SOCKET, hostLong int32, netLong *int32) (int, error) {
 	return 0, nil
 }
 
-// WSAHtons converts a signed short (int16) from host byte order to network byte order.
-func WSAHtons(s SOCKET, hostShort int16, netShort *int16) (int, error) {
+// WSAHtons converts a unsigned short (uint16) from host byte order to network byte order.
+func WSAHtons(s SOCKET, hostShort uint16, netShort *uint16) (int, error) {
 	ret, _, err := procWSAHtons.Call(
 		uintptr(s),
 		uintptr(hostShort),
