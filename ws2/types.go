@@ -472,10 +472,16 @@ type WSAPollFD struct {
 	Revents int16  // Set of flags that indicate, upon return from the WSAPoll function call, the results of the status query.
 }
 
-// WSAProtocolChain contains a counted list of Catalog Entry identifiers that comprise a protocol chain.
-type WSAProtocolChain struct {
+// WSAProtocolChainA contains a counted list of Catalog Entry identifiers that comprise a protocol chain.
+type WSAProtocolChainA struct {
+	ChainLength  int32                      // Length of the chain, in bytes. (0 = layered protocol, 1 = base protocol, >1 = protocol chain)
+	ChainEntries [MAX_PROTOCOL_CHAIN]uint32 // Array of protocol chain entries.
+}
+
+// WSAProtocolChainW contains a counted list of Catalog Entry identifiers that comprise a protocol chain.
+type WSAProtocolChainW struct {
 	ChainLength  int32   // Length of the chain, in bytes. (0 = layered protocol, 1 = base protocol, >1 = protocol chain)
-	ChainEntries *uint32 // Array of protocol chain entries. /*[MAX_PROTOCOL_CHAIN]uint32*/
+	ChainEntries *uint32 // Array of protocol chain entries.
 }
 
 // WSAProtocolInfoA is used to store or retrieve complete information for a given protocol.
@@ -488,7 +494,7 @@ type WSAProtocolInfoA struct {
 	ProviderFlags     uint32                    // Set of flags that provides information on how this protocol is represented in the Winsock catalog.
 	ProviderId        GUID                      // A globally unique identifier (GUID) assigned to the provider by the service provider vendor.
 	CatalogEntryId    uint32                    // Unique identifier assigned by the WS2_32.DLL for each WSAProtocolInfo structure.
-	ProtocolChain     WSAProtocolChain          // The WSAProtocolChain structure associated with the protocol.
+	ProtocolChain     WSAProtocolChainA         // The WSAProtocolChain structure associated with the protocol.
 	Version           int32                     // Protocol version identifier.
 	AddressFamily     int32                     // Value to pass as the address family parameter to the socket or WSASocket function in order to open a socket for this protocol.
 	MaxSockAddr       int32                     // Maximum address length, in bytes.
@@ -513,7 +519,7 @@ type WSAProtocolInfoW struct {
 	ProviderFlags     uint32                      // Set of flags that provides information on how this protocol is represented in the Winsock catalog.
 	ProviderId        GUID                        // A globally unique identifier (GUID) assigned to the provider by the service provider vendor.
 	CatalogEntryId    uint32                      // Unique identifier assigned by the WS2_32.DLL for each WSAProtocolInfo structure.
-	ProtocolChain     WSAProtocolChain            // The WSAProtocolChain structure associated with the protocol.
+	ProtocolChain     WSAProtocolChainW           // The WSAProtocolChain structure associated with the protocol.
 	Version           int32                       // Protocol version identifier.
 	AddressFamily     int32                       // Value to pass as the address family parameter to the socket or WSASocket function in order to open a socket for this protocol.
 	MaxSockAddr       int32                       // Maximum address length, in bytes.
