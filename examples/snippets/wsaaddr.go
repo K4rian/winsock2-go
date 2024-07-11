@@ -14,6 +14,8 @@ Demonstrate the usage of the following functions:
 - WSAAddressToStringW: Converts all components of a sockaddr structure into a human-readable string representation of the address.
 - WSAStringToAddressA: Converts a network address in its standard text presentation form into its numeric binary form in a sockaddr structure.
 - WSAStringToAddressW: Converts a network address in its standard text presentation form into its numeric binary form in a sockaddr structure.
+- WSAEnumProtocolsA:   Retrieves information about available transport protocols.
+- WSAEnumProtocolsW:   Retrieves information about available transport protocols.
 */
 
 // WSAStartup() has to be called before using these functions.
