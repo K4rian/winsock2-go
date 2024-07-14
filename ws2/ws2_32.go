@@ -1104,10 +1104,12 @@ func WSAEventSelect(s SOCKET, eventObject WSAEVENT, networkEvents int32) (int, e
 }
 
 // WSAGetLastError returns the error status for the last Windows Sockets operation that failed.
+/*
 func WSAGetLastError() int {
 	ret, _, _ := procWSAGetLastError.Call()
 	return int(int32(ret))
 }
+*/
 
 // WSAGetOverlappedResult retrieves the results of an overlapped operation on the specified socket.
 func WSAGetOverlappedResult(s SOCKET, overlapped *WSAOverlapped, transfer *uint32, wait bool, flags *uint32) (bool, error) {
@@ -1130,6 +1132,7 @@ func WSAGetOverlappedResult(s SOCKET, overlapped *WSAOverlapped, transfer *uint3
 
 // WSAGetQOSByName initializes a QOS structure based on a named template, or it supplies a buffer to retrieve
 // an enumeration of the available template names.
+/*
 func WSAGetQOSByName(s SOCKET, qOSName *WSABuf, qOS *QOS) (bool, error) {
 	ret, _, err := procWSAGetQOSByName.Call(
 		uintptr(s),
@@ -1141,8 +1144,10 @@ func WSAGetQOSByName(s SOCKET, qOSName *WSABuf, qOS *QOS) (bool, error) {
 	}
 	return true, nil
 }
+*/
 
 // WSAGetServiceClassInfoA retrieves the class information (schema) pertaining to a specified service class from a specified namespace provider.
+/*
 func WSAGetServiceClassInfoA(
 	providerId *GUID,
 	serviceClassId *GUID,
@@ -1160,8 +1165,10 @@ func WSAGetServiceClassInfoA(
 	}
 	return 0, nil
 }
+*/
 
 // WSAGetServiceClassInfoW retrieves the class information (schema) pertaining to a specified service class from a specified namespace provider.
+/*
 func WSAGetServiceClassInfoW(
 	providerId *GUID,
 	serviceClassId *GUID,
@@ -1179,10 +1186,12 @@ func WSAGetServiceClassInfoW(
 	}
 	return 0, nil
 }
+*/
 
 // WSAGetServiceClassNameByClassIdA retrieves the name of the service associated with the specified type.
 //
 // This name is the generic service name, like FTP or SNA, and not the name of a specific instance of that service.
+/*
 func WSAGetServiceClassNameByClassIdA(serviceClassId *GUID, serviceClassName *byte, bufferLength *uint32) (int, error) {
 	ret, _, err := procWSAGetServiceClassNameByClassIdA.Call(
 		uintptr(unsafe.Pointer(serviceClassId)),
@@ -1194,10 +1203,12 @@ func WSAGetServiceClassNameByClassIdA(serviceClassId *GUID, serviceClassName *by
 	}
 	return 0, nil
 }
+*/
 
 // WSAGetServiceClassNameByClassIdW retrieves the name of the service associated with the specified type.
 //
 // This name is the generic service name, like FTP or SNA, and not the name of a specific instance of that service.
+/*
 func WSAGetServiceClassNameByClassIdW(serviceClassId *GUID, serviceClassName *uint16, bufferLength *uint32) (int, error) {
 	ret, _, err := procWSAGetServiceClassNameByClassIdW.Call(
 		uintptr(unsafe.Pointer(serviceClassId)),
@@ -1209,6 +1220,7 @@ func WSAGetServiceClassNameByClassIdW(serviceClassId *GUID, serviceClassName *ui
 	}
 	return 0, nil
 }
+*/
 
 // WSAHtonl converts a unsigned long (uint32) from host byte order to network byte order.
 func WSAHtonl(s SOCKET, hostLong uint32, netLong *uint32) (int, error) {
@@ -1240,6 +1252,7 @@ func WSAHtons(s SOCKET, hostShort uint16, netShort *uint16) (int, error) {
 //
 // This schema includes the class name, class identifier, and any namespace-specific information that is common to all
 // instances of the service, such as the SAP identifier or object identifier.
+/*
 func WSAInstallServiceClassA(serviceClassInfo *WSAServiceClassInfoA) (int, error) {
 	ret, _, err := procWSAInstallServiceClassA.Call(
 		uintptr(unsafe.Pointer(serviceClassInfo)),
@@ -1249,11 +1262,13 @@ func WSAInstallServiceClassA(serviceClassInfo *WSAServiceClassInfoA) (int, error
 	}
 	return 0, nil
 }
+*/
 
 // WSAInstallServiceClassW registers a service class schema within a namespace.
 //
 // This schema includes the class name, class identifier, and any namespace-specific information that is common to all
 // instances of the service, such as the SAP identifier or object identifier.
+/*
 func WSAInstallServiceClassW(serviceClassInfo *WSAServiceClassInfoW) (int, error) {
 	ret, _, err := procWSAInstallServiceClassW.Call(
 		uintptr(unsafe.Pointer(serviceClassInfo)),
@@ -1263,6 +1278,7 @@ func WSAInstallServiceClassW(serviceClassInfo *WSAServiceClassInfoW) (int, error
 	}
 	return 0, nil
 }
+*/
 
 // WSAIoctl controls the mode of a socket.
 //
@@ -1394,6 +1410,7 @@ func WSALookupServiceNextA(lookup HANDLE, controlFlags uint32, bufferLength *uin
 // The provider will pass back a WSAQuerySet structure in the results buffer.
 //
 // The client should continue to call this function until it returns WSA_E_NO_MORE, indicating that all of WSAQuerySet has been returned.
+/*
 func WSALookupServiceNextW(lookup HANDLE, controlFlags uint32, bufferLength *uint32, results *WSAQuerySetW) (int, error) {
 	ret, _, err := procWSALookupServiceNextW.Call(
 		uintptr(lookup),
@@ -1406,6 +1423,7 @@ func WSALookupServiceNextW(lookup HANDLE, controlFlags uint32, bufferLength *uin
 	}
 	return 0, nil
 }
+*/
 
 // WSANSPIoctl enables developers to make I/O control calls to a registered namespace.
 //
