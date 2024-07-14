@@ -1005,8 +1005,6 @@ func WSAEnumNameSpaceProvidersA(bufferLength *uint32, buffer *WSANameSpaceInfoA)
 // WSAEnumNameSpaceProvidersExA retrieves information on available namespace providers.
 //
 // NOTE: buffer should be a pointer to the first element of a WSANameSpaceInfoExA slice.
-//
-// NOTE: buffer[x].ProviderSpecific doesn't contain any data, only the length.
 func WSAEnumNameSpaceProvidersExA(bufferLength *uint32, buffer *WSANameSpaceInfoExA) (int, error) {
 	ret, _, err := procWSAEnumNameSpaceProvidersExA.Call(
 		uintptr(unsafe.Pointer(bufferLength)),
@@ -1022,9 +1020,6 @@ func WSAEnumNameSpaceProvidersExA(bufferLength *uint32, buffer *WSANameSpaceInfo
 // WSAEnumNameSpaceProvidersExW retrieves information on available namespace providers.
 //
 // NOTE: buffer should be a pointer to the first element of a WSANameSpaceInfoExW slice.
-//
-// NOTE: buffer[x].ProviderSpecific doesn't contain any data, only the length.
-/*
 func WSAEnumNameSpaceProvidersExW(bufferLength *uint32, buffer *WSANameSpaceInfoExW) (int, error) {
 	ret, _, err := procWSAEnumNameSpaceProvidersExW.Call(
 		uintptr(unsafe.Pointer(bufferLength)),
@@ -1036,7 +1031,6 @@ func WSAEnumNameSpaceProvidersExW(bufferLength *uint32, buffer *WSANameSpaceInfo
 	}
 	return int(iRet), nil
 }
-*/
 
 // WSAEnumNameSpaceProvidersW retrieves information on available namespace providers.
 //
