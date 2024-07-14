@@ -19,35 +19,35 @@ Demonstrate the usage of the following functions:
 
 func ExampleHtond() {
 	val := float64(145197.2024)
-	log.Printf("Htond  | %.4f -> %d\n", val, ws2.Htond(val))
+	log.Printf("ExampleHtond  | %.4f -> %d\n", val, ws2.Htond(val))
 }
 
 func ExampleHtonf() {
 	val := float32(451.8)
-	log.Printf("Htonf  | %.1f -> %d\n", val, ws2.Htonf(val))
+	log.Printf("ExampleHtonf  | %.1f -> %d\n", val, ws2.Htonf(val))
 }
 
 func ExampleHtonl() {
 	val := uint32(27015)
-	log.Printf("Htonl  | %d -> %d\n", val, ws2.Htonl(val))
+	log.Printf("ExampleHtonl  | %d -> %d\n", val, ws2.Htonl(val))
 }
 
 func ExampleHtonll() {
 	val := uint64(2701573903245214522)
-	log.Printf("Htonll | %d -> %d\n", val, ws2.Htonll(val))
+	log.Printf("ExampleHtonll | %d -> %d\n", val, ws2.Htonll(val))
 }
 
 func ExampleHtons() {
 	val := uint16(4046)
-	log.Printf("Htons  | %d -> %d\n", val, ws2.Htons(val))
+	log.Printf("ExampleHtons  | %d -> %d\n", val, ws2.Htons(val))
 }
 
 func ExampleNtohl() {
 	val := uint32(2271805440)
-	log.Printf("Ntohl  | %d -> %d\n", val, ws2.Ntohl(val))
+	log.Printf("ExampleNtohl  | %d -> %d\n", val, ws2.Ntohl(val))
 }
 
 func ExampleNtohs() {
 	val := uint16(52751)
-	log.Printf("Ntohs  | %d -> %d\n", val, ws2.Ntohs(val))
+	log.Printf("ExampleNtohs  | %d -> %d\n", val, ws2.Ntohs(val))
 }

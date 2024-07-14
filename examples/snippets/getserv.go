@@ -18,19 +18,19 @@ func ExampleGetServByName() {
 	serv, _ := ws2.GetServByName(&servName[0], &servProto[0])
 
 	if serv == nil {
-		log.Printf("GetServByName | The function returns nil for the service name '%s' and protocol name '%s'", servName, servProto)
+		log.Printf("ExampleGetServByName | The function returns nil for the service name '%s' and protocol name '%s'", servName, servProto)
 		return
 	}
 
-	log.Printf("GetServByName | Name:  %s\n", ws2.BytePtrToString(serv.SName))
-	log.Printf("GetServByName | Proto: %s\n", ws2.BytePtrToString(serv.SProto))
-	log.Printf("GetServByName | Port:  %d\n", ws2.Htons(uint16(serv.SPort)))
+	log.Printf("ExampleGetServByName | Name:  %s\n", ws2.BytePtrToString(serv.SName))
+	log.Printf("ExampleGetServByName | Proto: %s\n", ws2.BytePtrToString(serv.SProto))
+	log.Printf("ExampleGetServByName | Port:  %d\n", ws2.Htons(uint16(serv.SPort)))
 
 	aliases := doubleBytePtrToStrSlice(serv.SAliases) // _common.go#doubleBytePtrToStrSlice
 	if len(aliases) > 0 {
-		log.Printf("GetServByName | Aliases (%d):\n", len(aliases))
+		log.Printf("ExampleGetServByName | Aliases (%d):\n", len(aliases))
 		for i := 0; i < len(aliases); i++ {
-			log.Printf("GetServByName | - %s\n", aliases[i])
+			log.Printf("ExampleGetServByName | - %s\n", aliases[i])
 		}
 	}
 }
@@ -41,19 +41,19 @@ func ExampleGetServByPort() {
 	serv, _ := ws2.GetServByPort(uint16(servPort), &servProto[0])
 
 	if serv == nil {
-		log.Printf("GetServByPort | The function returns nil for the service port '%d' and protocol '%s'", servPort, servProto)
+		log.Printf("ExampleGetServByPort | The function returns nil for the service port '%d' and protocol '%s'", servPort, servProto)
 		return
 	}
 
-	log.Printf("GetServByPort | Name:  %s\n", ws2.BytePtrToString(serv.SName))
-	log.Printf("GetServByPort | Proto: %s\n", ws2.BytePtrToString(serv.SProto))
-	log.Printf("GetServByPort | Port:  %d\n", ws2.Htons(uint16(serv.SPort)))
+	log.Printf("ExampleGetServByPort | Name:  %s\n", ws2.BytePtrToString(serv.SName))
+	log.Printf("ExampleGetServByPort | Proto: %s\n", ws2.BytePtrToString(serv.SProto))
+	log.Printf("ExampleGetServByPort | Port:  %d\n", ws2.Htons(uint16(serv.SPort)))
 
 	aliases := doubleBytePtrToStrSlice(serv.SAliases) // _common.go#doubleBytePtrToStrSlice
 	if len(aliases) > 0 {
-		log.Printf("GetServByPort | Aliases (%d):\n", len(aliases))
+		log.Printf("ExampleGetServByPort | Aliases (%d):\n", len(aliases))
 		for i := 0; i < len(aliases); i++ {
-			log.Printf("GetServByPort | - %s\n", aliases[i])
+			log.Printf("ExampleGetServByPort | - %s\n", aliases[i])
 		}
 	}
 }

@@ -30,15 +30,15 @@ func ExampleGetNameInfoA(sock6 *ws2.SockAddrInet6) {
 	)
 
 	if err != nil {
-		log.Printf("GetNameInfoA | Error (%d): %v\n", ret, err)
+		log.Printf("ExampleGetNameInfoA | Error (%d): %v\n", ret, err)
 		return
 	}
 
 	node := ws2.BytePtrToString(&nodeBuffer[0])
 	service := ws2.BytePtrToString(&serviceBuffer[0])
 
-	log.Printf("GetNameInfoA | Node:    %s\n", node)
-	log.Printf("GetNameInfoA | Service: %s\n", service)
+	log.Printf("ExampleGetNameInfoA | Node:    %s\n", node)
+	log.Printf("ExampleGetNameInfoA | Service: %s\n", service)
 }
 
 func ExampleGetNameInfoW(sock6 *ws2.SockAddrInet6) {
@@ -57,13 +57,13 @@ func ExampleGetNameInfoW(sock6 *ws2.SockAddrInet6) {
 	)
 
 	if err != nil {
-		log.Printf("GetNameInfoW | Error (%d): %v\n", ret, err)
+		log.Printf("ExampleGetNameInfoW | Error (%d): %v\n", ret, err)
 		return
 	}
 
 	node := syscall.UTF16ToString(nodeBuffer[:])
 	service := syscall.UTF16ToString(serviceBuffer[:])
 
-	log.Printf("GetNameInfoW | Node:    %s\n", node)
-	log.Printf("GetNameInfoW | Service: %s\n", service)
+	log.Printf("ExampleGetNameInfoW | Node:    %s\n", node)
+	log.Printf("ExampleGetNameInfoW | Service: %s\n", service)
 }

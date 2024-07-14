@@ -22,7 +22,7 @@ func ExampleWSAHtonl() {
 	valOut := uint32(0)
 	ws2.WSAHtonl(socket, valIn, &valOut)
 
-	log.Printf("WSAHtonl | %d -> %d\n", valIn, valOut)
+	log.Printf("ExampleWSAHtonl | %d -> %d\n", valIn, valOut)
 }
 
 func ExampleWSAHtons() {
@@ -31,7 +31,7 @@ func ExampleWSAHtons() {
 	valOut := uint16(0)
 	ws2.WSAHtons(socket, valIn, &valOut)
 
-	log.Printf("WSAHtons | %d -> %d\n", valIn, valOut)
+	log.Printf("ExampleWSAHtons | %d -> %d\n", valIn, valOut)
 }
 
 func ExampleWSANtohl() {
@@ -40,7 +40,7 @@ func ExampleWSANtohl() {
 	valOut := uint32(0)
 	ws2.WSANtohl(socket, valIn, &valOut)
 
-	log.Printf("WSANtohl | %d -> %d\n", valIn, valOut)
+	log.Printf("ExampleWSANtohl | %d -> %d\n", valIn, valOut)
 }
 
 func ExampleWSANtohs() {
@@ -49,5 +49,5 @@ func ExampleWSANtohs() {
 	valOut := uint16(0)
 	ws2.WSANtohs(socket, valIn, &valOut)
 
-	log.Printf("WSANtohs | %d -> %d\n", valIn, valOut)
+	log.Printf("ExampleWSANtohs | %d -> %d\n", valIn, valOut)
 }
