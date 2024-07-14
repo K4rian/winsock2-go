@@ -24,7 +24,7 @@ func ExampleInetAddr() {
 	addr := ws2.InetAddr(&ip[0])
 
 	if addr == ws2.INADDR_NONE {
-		log.Printf("InetAddr | Invalid IP address: %s\n", ip)
+		log.Printf("ExampleInetAddr | Invalid IP address: %s\n", ip)
 		return
 	}
 
@@ -35,11 +35,11 @@ func ExampleInetAddr() {
 	binary.LittleEndian.PutUint32(addrBytesLE, addr)
 	binary.BigEndian.PutUint32(addrBytesBE, addr)
 
-	log.Printf("InetAddr | Original IP (string): %s\n", ip)
-	log.Printf("InetAddr | Binary (LE):          %d\n", addr)
-	log.Printf("InetAddr | Binary (BE):          %d\n", addrBE)
-	log.Printf("InetAddr | Bytes (LE):           %v\n", addrBytesLE)
-	log.Printf("InetAddr | Bytes (BE):           %v\n", addrBytesBE)
+	log.Printf("ExampleInetAddr | Original IP (string): %s\n", ip)
+	log.Printf("ExampleInetAddr | Binary (LE):          %d\n", addr)
+	log.Printf("ExampleInetAddr | Binary (BE):          %d\n", addrBE)
+	log.Printf("ExampleInetAddr | Bytes (LE):           %v\n", addrBytesLE)
+	log.Printf("ExampleInetAddr | Bytes (BE):           %v\n", addrBytesBE)
 }
 
 func ExampleInetNtoa() {
@@ -50,9 +50,9 @@ func ExampleInetNtoa() {
 
 	retStr := ws2.InetNtoa(&addr)
 
-	log.Printf("InetNtoa | Original Addr (bytes):    %v\n", addr.Addr)
-	log.Printf("InetNtoa | Expected Result (string): %s\n", addrStr)
-	log.Printf("InetNtoa | Result (string):          %s\n", retStr)
+	log.Printf("ExampleInetNtoa | Original Addr (bytes):    %v\n", addr.Addr)
+	log.Printf("ExampleInetNtoa | Expected Result (string): %s\n", addrStr)
+	log.Printf("ExampleInetNtoa | Result (string):          %s\n", retStr)
 }
 
 func ExampleInetNtop() {
@@ -66,15 +66,15 @@ func ExampleInetNtop() {
 	ret, err := ws2.InetNtop(ws2.AF_INET6, unsafe.Pointer(addr), &buf[0], bufLen)
 
 	if ret == nil {
-		log.Printf("InetNtop | The function returns a nil value: %v\n", err)
+		log.Printf("ExampleInetNtop | The function returns a nil value: %v\n", err)
 	}
 
 	// buf could also be used here.
 	retStr := ws2.BytePtrToString(ret)
 
-	log.Printf("InetNtop | Original IP (bytes):      %v\n", addr.Addr)
-	log.Printf("InetNtop | Expected Result (string): %s\n", addrStr)
-	log.Printf("InetNtop | Result (string):          %s\n", retStr)
+	log.Printf("ExampleInetNtop | Original IP (bytes):      %v\n", addr.Addr)
+	log.Printf("ExampleInetNtop | Expected Result (string): %s\n", addrStr)
+	log.Printf("ExampleInetNtop | Result (string):          %s\n", retStr)
 }
 
 func ExampleInetNtopW() {
@@ -88,15 +88,15 @@ func ExampleInetNtopW() {
 	ret, err := ws2.InetNtopW(ws2.AF_INET6, unsafe.Pointer(addr), &buf[0], bufLen)
 
 	if ret == nil {
-		log.Printf("InetNtopW | The function returns a nil value: %v\n", err)
+		log.Printf("ExampleInetNtopW | The function returns a nil value: %v\n", err)
 	}
 
 	// buf could also be used here.
 	retStr, _ := ws2.UTF16PtrToString(ret)
 
-	log.Printf("InetNtopW | Original IP (bytes):      %v\n", addr.Addr)
-	log.Printf("InetNtopW | Expected Result (string): %s\n", addrStr)
-	log.Printf("InetNtopW | Result (string):          %s\n", retStr)
+	log.Printf("ExampleInetNtopW | Original IP (bytes):      %v\n", addr.Addr)
+	log.Printf("ExampleInetNtopW | Expected Result (string): %s\n", addrStr)
+	log.Printf("ExampleInetNtopW | Result (string):          %s\n", retStr)
 }
 
 func ExampleInetPton() {
@@ -108,13 +108,13 @@ func ExampleInetPton() {
 
 	ret, err := ws2.InetPton(uint16(family), &addrBytes[0], unsafe.Pointer(&addrBuf))
 	if err != nil {
-		log.Printf("InetPton | Error (%d): %v\n", ret, err)
+		log.Printf("ExampleInetPton | Error (%d): %v\n", ret, err)
 		return
 	}
 
-	log.Printf("InetPton | Original IP (string):    %s\n", addrStr)
-	log.Printf("InetPton | Expected Result (bytes): %s\n", exResult)
-	log.Printf("InetPton | Result (bytes):          %v\n", addrBuf.Addr)
+	log.Printf("ExampleInetPton | Original IP (string):    %s\n", addrStr)
+	log.Printf("ExampleInetPton | Expected Result (bytes): %s\n", exResult)
+	log.Printf("ExampleInetPton | Result (bytes):          %v\n", addrBuf.Addr)
 }
 
 func ExampleInetPtonW() {
@@ -126,11 +126,11 @@ func ExampleInetPtonW() {
 
 	ret, err := ws2.InetPtonW(uint16(family), &addr16[0], unsafe.Pointer(&addrBuf))
 	if err != nil {
-		log.Printf("InetPtonW | Error (%d): %v\n", ret, err)
+		log.Printf("ExampleInetPtonW | Error (%d): %v\n", ret, err)
 		return
 	}
 
-	log.Printf("InetPtonW | Original IP (string):    %s\n", addrStr)
-	log.Printf("InetPtonW | Expected Result (bytes): %s\n", exResult)
-	log.Printf("InetPtonW | Result (bytes):          %v\n", addrBuf.Addr)
+	log.Printf("ExampleInetPtonW | Original IP (string):    %s\n", addrStr)
+	log.Printf("ExampleInetPtonW | Expected Result (bytes): %s\n", exResult)
+	log.Printf("ExampleInetPtonW | Result (bytes):          %v\n", addrBuf.Addr)
 }
