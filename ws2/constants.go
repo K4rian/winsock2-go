@@ -1425,3 +1425,12 @@ var WSAID_MULTIPLE_RIO = GUID{
 	Data3: 0x4005,
 	Data4: [8]byte{0xb1, 0x65, 0x9e, 0x2e, 0xe8, 0xc7, 0x9e, 0x3f},
 }
+
+/*
+  winerror.h
+*/
+
+const (
+	WSA_SECURE_HOST_NOT_FOUND   = WSABASEERR + 1032 // No such host is known securely
+	WSA_IPSEC_NAME_POLICY_ERROR = WSABASEERR + 1033 // Name based IPSEC policy could not be added
+)
