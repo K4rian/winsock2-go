@@ -114,6 +114,6 @@ func ExampleBTQuery() {
 	log.Printf("ExampleBTQuery | Bluetooth Remote Device Address: %s\n", string(devAddrBuf))
 
 	//
-	// WSALookupServiceNextA can be called again until it returns WSA_E_NO_MORE
+	// WSALookupServiceNextA can be called again until it returns WSAENOMORE/WSA_E_NO_MORE
 	// ...
 }

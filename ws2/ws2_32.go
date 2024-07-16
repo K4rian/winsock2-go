@@ -584,7 +584,7 @@ func Listen(s SOCKET, backlog int32) (int, error) {
 // ProcessSocketNotifications
 // Ignored
 
-// Recv function receives data from a connected socket or a bound connectionless socket.
+// Recv receives data from a connected socket or a bound connectionless socket.
 func Recv(s SOCKET, buf unsafe.Pointer, len int32, flags int32) (int, error) {
 	ret, _, err := procRecv.Call(
 		uintptr(s),
@@ -680,7 +680,7 @@ func SetSockOpt(s SOCKET, level int32, optName int32, optVal unsafe.Pointer, opt
 	return 0, nil
 }
 
-// Shutdown function disables sends or receives on a socket.
+// Shutdown disables sends or receives on a socket.
 func Shutdown(s SOCKET, how int32) (int, error) {
 	ret, _, err := procShutdown.Call(
 		uintptr(s),
@@ -713,7 +713,7 @@ func Socket(af int32, stype int32, protocol int32) (SOCKET, error) {
 // WSAAccept accepts a connection based on the return value of a condition function,
 // provides quality of service flow specifications, and allows the transfer of connection data.
 //
-// Warning: Partially implemented, the condition and callbackData parameters are always ignored.
+// WARNING: Partially implemented, the condition and callbackData parameters are always ignored.
 func WSAAccept(s SOCKET, addr unsafe.Pointer, addrLen *int32, condition unsafe.Pointer, callbackData uintptr) (SOCKET, error) {
 	ret, _, err := procWSAAccept.Call(
 		uintptr(s),
@@ -1282,7 +1282,7 @@ func WSAInstallServiceClassW(serviceClassInfo *WSAServiceClassInfoW) (int, error
 
 // WSAIoctl controls the mode of a socket.
 //
-// Warning: Partially implemented, the completionRoutine parameter is always ignored.
+// WARNING: Partially implemented, the completionRoutine parameter is always ignored.
 func WSAIoctl(
 	s SOCKET,
 	ioControlCode uint32,
@@ -1427,7 +1427,7 @@ func WSALookupServiceNextW(lookup HANDLE, controlFlags uint32, bufferLength *uin
 
 // WSANSPIoctl enables developers to make I/O control calls to a registered namespace.
 //
-// Warning: Partially implemented, the completion parameter is always ignored.
+// WARNING: Partially implemented, the completion parameter is always ignored.
 func WSANSPIoctl(
 	lookup HANDLE,
 	controlCode uint32,
@@ -1498,7 +1498,7 @@ func WSAPoll(fdArray []WSAPollFD, fds uint32, timeout int32) (int, error) {
 
 // WSAProviderConfigChange notifies the application when the provider configuration is changed.
 //
-// Warning: Partially implemented, the completionRoutine parameter is always ignored.
+// WARNING: Partially implemented, the completionRoutine parameter is always ignored.
 func WSAProviderConfigChange(
 	notificationHandle *HANDLE,
 	overlapped *WSAOverlapped,
@@ -1518,7 +1518,7 @@ func WSAProviderConfigChange(
 
 // WSARecv receives data from a connected socket or a bound connectionless socket.
 //
-// Warning: Partially implemented, the completionRoutine parameter is always ignored.
+// WARNING: Partially implemented, the completionRoutine parameter is always ignored.
 func WSARecv(
 	s SOCKET,
 	buffers *WSABuf,
@@ -1558,7 +1558,7 @@ func WSARecvDisconnect(s SOCKET, inboundDisconnectData *WSABuf) (int, error) {
 
 // WSARecvFrom receives a datagram and stores the source address.
 //
-// Warning: Partially implemented, the completionRoutine parameter is always ignored.
+// WARNING: Partially implemented, the completionRoutine parameter is always ignored.
 func WSARecvFrom(
 	s SOCKET,
 	buffers *WSABuf,
@@ -1611,7 +1611,7 @@ func WSAResetEvent(event WSAEVENT) (bool, error) {
 
 // WSASend sends data on a connected socket.
 //
-// Warning: Partially implemented, the completionRoutine parameter is always ignored.
+// WARNING: Partially implemented, the completionRoutine parameter is always ignored.
 func WSASend(
 	s SOCKET,
 	buffers *WSABuf,
@@ -1650,7 +1650,7 @@ func WSASendDisconnect(s SOCKET, inboundDisconnectData *WSABuf) (int, error) {
 
 // WSASendMsg sends data and optional control information from connected and unconnected sockets.
 //
-// Warning: Partially implemented, the completionRoutine parameter is always ignored.
+// WARNING: Partially implemented, the completionRoutine parameter is always ignored.
 func WSASendMsg(
 	socket SOCKET,
 	msg *WSAMsg,
@@ -1675,7 +1675,7 @@ func WSASendMsg(
 
 // WSASendTo sends data to a specific destination, using overlapped I/O where applicable.
 //
-// Warning: Partially implemented, the completionRoutine parameter is always ignored.
+// WARNING: Partially implemented, the completionRoutine parameter is always ignored.
 func WSASendTo(
 	s SOCKET,
 	buffers *WSABuf,

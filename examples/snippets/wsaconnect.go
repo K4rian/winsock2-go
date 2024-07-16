@@ -10,7 +10,7 @@ import (
 
 /*
 Demonstrate the usage of the following functions:
-- WSAConnect: Establishes a connection to another socket application, exchanges connect data, and specifies required quality of service based on the specified FlowSpec structure.
+- WSAConnect:        Establishes a connection to another socket application, exchanges connect data, and specifies required quality of service based on the specified FlowSpec structure.
 - WSAConnectByNameA: Establishes a connection to a specified host and port.
 - WSAConnectByNameW: Establishes a connection to a specified host and port.
 */
