@@ -289,7 +289,7 @@ func GetHostNameW(name *uint16, namelen int) (int, error) {
 	return 0, nil
 }
 
-// GetNameInfo provides protocol-independent name resolution from an address to an ANSI
+// GetNameInfoA provides protocol-independent name resolution from an address to an ANSI
 // host name and from a port number to the ANSI service name.
 func GetNameInfoA(
 	sockaddr unsafe.Pointer,
@@ -1756,7 +1756,7 @@ func WSASetServiceW(regInfo *WSAQuerySetW, essoperation WSAESETSERVICEOP, contro
 }
 
 // WSASocketA creates a socket that is bound to a specific transport-service provider.
-func WSASocketA(af, stype int32, protocol int32, protocolInfo *WSAProtocolInfoA, g GROUP, flags uint32) (SOCKET, error) {
+func WSASocketA(af int32, stype int32, protocol int32, protocolInfo *WSAProtocolInfoA, g GROUP, flags uint32) (SOCKET, error) {
 	ret, _, err := procWSASocketA.Call(
 		uintptr(af),
 		uintptr(stype),
@@ -1773,7 +1773,7 @@ func WSASocketA(af, stype int32, protocol int32, protocolInfo *WSAProtocolInfoA,
 }
 
 // WSASocketW creates a socket that is bound to a specific transport-service provider.
-func WSASocketW(af, stype int32, protocol int32, protocolInfo *WSAProtocolInfoW, g GROUP, flags uint32) (SOCKET, error) {
+func WSASocketW(af int32, stype int32, protocol int32, protocolInfo *WSAProtocolInfoW, g GROUP, flags uint32) (SOCKET, error) {
 	ret, _, err := procWSASocketW.Call(
 		uintptr(af),
 		uintptr(stype),
