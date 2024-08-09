@@ -164,7 +164,7 @@ Status                                                                          
 ## Installation
 To install the package, use `go get`:
 ```bash
-go get -u github.com/K4rian/winsock2-go/ws2
+go get -u github.com/K4rian/winsock2-go
 ```
 
 Then import it in your project:
